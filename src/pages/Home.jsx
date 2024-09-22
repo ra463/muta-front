@@ -29,8 +29,8 @@ const Home = () => {
       <div className="dummy_data">
         <h1>Dummy Products</h1>
         <div className="products">
-          {productData.map((product) => (
-            <div className="product">
+          {productData.map((product, i) => (
+            <div key={i} className="product">
               <img src={product.p_image} alt={product.p_name} />
               <h3>Name: {product.p_name}</h3>
               <div className="details">

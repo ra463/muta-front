@@ -22,7 +22,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axiosInstance.post("/api/user/forgot-password", {
+      const { data } = await axiosInstance.post("/api/user/send-code", {
         email,
       });
       if (data.success) {
