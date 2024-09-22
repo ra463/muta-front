@@ -72,7 +72,7 @@ const Register = () => {
     try {
       if (response["code"]) {
         const { data } = await axiosInstance.get(
-          `/api/user/google-login?code=${response["code"]}`
+          `/api/user/google-login?google_code=${response["code"]}`
         );
 
         if (data.success) {
