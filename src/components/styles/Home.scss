@@ -24,13 +24,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 10px;
             align-items: flex-start;
-            transition: all 0.15s ease-in-out;
-
-            &:hover{
-                transform: scale(1.05);
-            }
 
             img{
                 width: 100%;
@@ -38,8 +33,23 @@
                 object-fit: contain;
             }
 
-            h3{
-                
+            .details{
+                font-size: 0.8rem;
+            }
+
+            button{
+                padding: 0.5rem 1rem;
+                width: 100%;
+                border: none;
+                outline: none;
+                background: #3a3b3c;
+                color: #fff;
+                border-radius: 5px;
+                cursor: pointer;
+
+                &:hover{
+                    background: #ff3f62;
+                }
             }
         }
     }
