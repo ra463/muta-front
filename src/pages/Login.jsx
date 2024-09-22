@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../components/styles/Login.scss";
@@ -9,6 +9,7 @@ import { setToken } from "../features/authSlice";
 import Header from "../components/Header/Header";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,14 +19,18 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState("");
+  const captachaRef = useRef();
 
   const loginHandler = async (e) => {
     e.preventDefault();
+    captachaRef.current.reset();
     try {
       setLoading(true);
       const { data } = await axiosInstance.post("/api/user/login", {
         email,
         password,
+        value,
       });
 
       if (data.success) {
@@ -84,6 +89,10 @@ const Login = () => {
     }
   };
 
+  const onChangeFun = (value) => {
+    setValue(value);
+  };
+
   const googleLogin = useGoogleLogin({
     onSuccess: responseGoogle,
     onError: responseGoogle,
@@ -119,6 +128,14 @@ const Login = () => {
           <div to="/register" className="signup">
             <Link to="/register">Create an account?</Link>
             <Link to="/reset-password">Forgot Password?</Link>
+          </div>
+
+          <div className="recaptcha">
+            <ReCAPTCHA
+              sitekey={`${process.env.REACT_APP_SITE_KEY}`}
+              onChange={onChangeFun}
+              ref={captachaRef}
+            />
           </div>
 
           <button disabled={loading} type="submit">
