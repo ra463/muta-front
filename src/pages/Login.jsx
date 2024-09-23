@@ -59,8 +59,8 @@ const Login = () => {
   };
 
   const responseGoogle = async (response) => {
+    if(!value) return toast.error("Please Click on Captcha first");
     try {
-      if(!value) return toast.error("Please Click on Captcha first");
       if (response["code"]) {
         const { data } = await axiosInstance.get(
           `/api/user/google-login?google_code=${response["code"]}`
