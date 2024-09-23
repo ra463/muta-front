@@ -23,6 +23,7 @@ const Login = () => {
   const captachaRef = useRef();
 
   const loginHandler = async (e) => {
+    if(!value) return toast.error("Please Click on Captcha first");
     e.preventDefault();
     captachaRef.current.reset();
     try {
@@ -59,6 +60,7 @@ const Login = () => {
 
   const responseGoogle = async (response) => {
     try {
+      if(!value) return toast.error("Please Click on Captcha first");
       if (response["code"]) {
         const { data } = await axiosInstance.get(
           `/api/user/google-login?google_code=${response["code"]}`
